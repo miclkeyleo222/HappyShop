@@ -58,9 +58,26 @@ public class Trolley {
      *     }
      * }
      */
-    public void addProduct(Product product) {
-        products.add(product); // product is appended to the end of the trolley
+   
+public void addProduct(Product product) {
+    // Check if the product is already in the trolley
+    for (Product existingProduct : products) {
+        if (existingProduct.getProductId().equals(product.getProductId())) {
+            int newQuantity = existingProduct.getOrderedQuantity()
+                    + product.getOrderedQuantity();
+
+            existingProduct.setOrderedQuantity(newQuantity);
+            return;
+        }
     }
+
+    // Add the product if it is not already in the trolley
+    products.add(product);
+
+    // Sort products by their ID
+    products.sort(null);
+}
+
 
     public ArrayList<Product> getProducts() {
         return products;
