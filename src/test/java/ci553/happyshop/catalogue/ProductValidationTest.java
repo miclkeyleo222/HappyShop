@@ -58,4 +58,20 @@ class ProductValidationTest {
 
         assertEquals(20, product.getStockQuantity());
     }
+
+    @Test
+    void rejectNegativeStockInConstructor() {
+        // Check that a new product cannot start with negative stock
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Product("0001", "T-shirt", "0001.jpg", 20.00, -10);
+        });
+    }
+
+    @Test
+    void rejectInvalidQuantityInConstructor() {
+        // Check that a product cannot be created with zero ordered quantity
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Product("0001", "T-shirt", "0001.jpg", 20.00, 0, 10);
+        });
+    }
 }
