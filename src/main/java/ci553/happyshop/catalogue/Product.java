@@ -55,13 +55,27 @@ public class Product implements Comparable<Product> {
     public int getStockQuantity() { return stockQuantity;}
 
     //a setter method
+    
     public void setOrderedQuantity(int orderedQuantity) {
+        // Customers must order at least one item
+        if (orderedQuantity <= 0) {
+            throw new IllegalArgumentException(
+                    "Ordered quantity must be greater than zero");
+        }
+    
         this.orderedQuantity = orderedQuantity;
     }
-
-    public void setStockQuantity(int stockQuantity){
+    
+    public void setStockQuantity(int stockQuantity) {
+        // Stock cannot be negative, but zero is allowed
+        if (stockQuantity < 0) {
+            throw new IllegalArgumentException(
+                    "Stock quantity cannot be negative");
+        }
+    
         this.stockQuantity = stockQuantity;
     }
+    
 
     @Override
     public int compareTo(Product otherProduct) {
