@@ -2,7 +2,7 @@ name: HappyShop Java Tests
 
 on:
   push:
-    branches: [development, feature/trolley-improvements]
+    branches: [development, feature/trolley-improvements, feature/product-validation]
   pull_request:
     branches: [development]
   workflow_dispatch:

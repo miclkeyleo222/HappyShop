@@ -34,7 +34,9 @@ public class Product implements Comparable<Product> {
         proDescription = des;
         proImageName = image;
         unitPrice = aPrice;
-        this.stockQuantity = stockQuantity;
+
+        // Use the setter to check that stock is valid
+        setStockQuantity(stockQuantity);
     }
 
     public Product(String id, String des, String image, double aPrice, int orderedQuantity, int stockQuantity) {
@@ -42,8 +44,10 @@ public class Product implements Comparable<Product> {
         proDescription = des;
         proImageName = image;
         unitPrice = aPrice;
-        this.orderedQuantity = orderedQuantity;
-        this.stockQuantity = stockQuantity;
+
+        // Check both quantities before storing them
+        setOrderedQuantity(orderedQuantity);
+        setStockQuantity(stockQuantity);
     }
 
     // a set of getter methods
@@ -55,13 +59,27 @@ public class Product implements Comparable<Product> {
     public int getStockQuantity() { return stockQuantity;}
 
     //a setter method
+
     public void setOrderedQuantity(int orderedQuantity) {
+        // Customers must order at least one item
+        if (orderedQuantity <= 0) {
+            throw new IllegalArgumentException(
+                    "Ordered quantity must be greater than zero");
+        }
+
         this.orderedQuantity = orderedQuantity;
     }
 
-    public void setStockQuantity(int stockQuantity){
+    public void setStockQuantity(int stockQuantity) {
+        // Stock cannot be negative, but zero is allowed
+        if (stockQuantity < 0) {
+            throw new IllegalArgumentException(
+                    "Stock quantity cannot be negative");
+        }
+
         this.stockQuantity = stockQuantity;
     }
+
 
     @Override
     public int compareTo(Product otherProduct) {
@@ -90,4 +108,3 @@ public class Product implements Comparable<Product> {
      */
 
 }
-
